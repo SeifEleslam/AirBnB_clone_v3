@@ -44,6 +44,10 @@ class FileStorage:
         """get an object by its class and ID"""
         return self.__objects[f"{cls.__name__}.{id}"]
 
+    def count(self, cls=None):
+        """Return count of passed class"""
+        return len(self.all(cls))
+
     def save(self):
         """serializes __objects to the JSON file (path: __file_path)"""
         json_objects = {}

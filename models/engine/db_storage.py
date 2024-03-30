@@ -59,6 +59,14 @@ class DBStorage:
         """get an object by its class and ID"""
         return self.__session.query(cls).filter_by(id=id).first()
 
+    def count(self, cls=None):
+        """Return count of passed class"""
+        count = 0
+        for clss in classes:
+            if cls is None or cls is classes[clss] or cls is clss:
+                count += self.__session.query(classes[clss]).count()
+        return count
+
     def save(self):
         """commit all changes of the current database session"""
         self.__session.commit()
