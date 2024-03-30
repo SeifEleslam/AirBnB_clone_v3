@@ -19,6 +19,11 @@ def teardown_db(exception):
     storage.close()
 
 
+@app.errorhandler(404)
+def endpoint_not_found(error):
+    return {"error": "Not found"}, 404
+
+
 if __name__ == "__main__":
     """Starting Point of app"""
     host = getenv("HBNB_API_HOST")
