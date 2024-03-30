@@ -55,6 +55,10 @@ class DBStorage:
         """add the object to the current database session"""
         self.__session.add(obj)
 
+    def get(self, cls, id):
+        """get an object by its class and ID"""
+        return self.__session.query(cls).filter_by(id=id).first()
+
     def save(self):
         """commit all changes of the current database session"""
         self.__session.commit()
