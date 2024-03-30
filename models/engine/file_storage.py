@@ -42,7 +42,7 @@ class FileStorage:
 
     def get(self, cls, id):
         """get an object by its class and ID"""
-        return self.__objects[f"{cls.__name__}.{id}"]
+        return self.__objects.get(f"{cls.__name__}.{id}")
 
     def count(self, cls=None):
         """Return count of passed class"""
