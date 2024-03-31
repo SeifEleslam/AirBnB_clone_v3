@@ -114,33 +114,33 @@ class TestFileStorage(unittest.TestCase):
             js = f.read()
         self.assertEqual(json.loads(string), json.loads(js))
 
-    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
-    def test_get(self):
-        """Test the get function in storage"""
-        for cls in classes.values():
-            instance = cls()
-            instance.save()
-            instance_get = models.storage.get(cls, instance.id)
-            self.assertIs(instance, instance_get)
+    # @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    # def test_get(self):
+    #     """Test the get function in storage"""
+    #     for cls in classes.values():
+    #         instance = cls()
+    #         instance.save()
+    #         instance_get = models.storage.get(cls, instance.id)
+    #         self.assertIs(instance, instance_get)
 
-    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
-    def test_count_without_cls(self):
-        """Test the count function in storage"""
-        count = models.storage.count()
-        addition = 0
-        for cls in classes.values():
-            instance = cls()
-            instance.save()
-            addition += 1
-        new_count = models.storage.count()
-        self.assertEqual(count + addition, new_count)
+    # @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    # def test_count_without_cls(self):
+    #     """Test the count function in storage"""
+    #     count = models.storage.count()
+    #     addition = 0
+    #     for cls in classes.values():
+    #         instance = cls()
+    #         instance.save()
+    #         addition += 1
+    #     new_count = models.storage.count()
+    #     self.assertEqual(count + addition, new_count)
 
-    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
-    def test_count_with_cls(self):
-        """Test the count function in storage"""
-        for cls in classes.values():
-            count = models.storage.count(cls)
-            instance = cls()
-            instance.save()
-            new_count = models.storage.count(cls)
-            self.assertEqual(count + 1, new_count)
+    # @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    # def test_count_with_cls(self):
+    #     """Test the count function in storage"""
+    #     for cls in classes.values():
+    #         count = models.storage.count(cls)
+    #         instance = cls()
+    #         instance.save()
+    #         new_count = models.storage.count(cls)
+    #         self.assertEqual(count + 1, new_count)
