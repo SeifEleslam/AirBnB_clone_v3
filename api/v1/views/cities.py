@@ -29,9 +29,7 @@ def cities(state_id):
         name = body.get('name')
         if not name:
             abort(400, "Missing name")
-        city = City()
-        city.name = name
-        city.state_id = state_id
+        city = City(**body)
         city.save()
         return city.to_dict(), 201
 

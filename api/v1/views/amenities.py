@@ -25,8 +25,7 @@ def get_amenities():
         name = body.get('name')
         if not name:
             abort(400, "Missing name")
-        amenity = Amenity()
-        amenity.name = name
+        amenity = Amenity(**body)
         amenity.save()
         return amenity.to_dict(), 201
 
