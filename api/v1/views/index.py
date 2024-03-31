@@ -5,12 +5,13 @@ starts a Flask api application
 
 from api.v1.views import app_views
 from models import storage
+from flask import jsonify
 
 
 @app_views.route('/status')
 def ok_status():
     """Return status OK for status route"""
-    return {"status": "OK"}, 200
+    return jsonify({"status": "OK"}), 200
 
 
 @app_views.route('/stats')
