@@ -117,28 +117,30 @@ class TestFileStorage(unittest.TestCase):
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_get(self):
         """Test the get function in storage"""
-        amenity = Amenity()
-        amenity.name = "new Amenity"
-        amenity.save()
-        amenity_get = models.storage.get(Amenity, amenity.id)
-        self.assertIs(amenity, amenity_get)
+        for cls in classes.values():
+            instance = cls()
+            instance.save()
+            instance_get = models.storage.get(cls, instance.id)
+            self.assertIs(instance, instance_get)
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_count_without_cls(self):
         """Test the count function in storage"""
         count = models.storage.count()
-        amenity = Amenity()
-        amenity.name = "new Amenity"
-        amenity.save()
+        addition = 0
+        for cls in classes.values():
+            instance = cls()
+            instance.save()
+            addition += 1
         new_count = models.storage.count()
-        self.assertEqual(count + 1, new_count)
+        self.assertEqual(count + addition, new_count)
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_count_with_cls(self):
         """Test the count function in storage"""
-        count = models.storage.count(Amenity)
-        amenity = Amenity()
-        amenity.name = "new Amenity"
-        amenity.save()
-        new_count = models.storage.count(Amenity)
-        self.assertEqual(count + 1, new_count)
+        for cls in classes.values():
+            count = models.storage.count(cls)
+            instance = cls()
+            instance.save()
+            new_count = models.storage.count(cls)
+            self.assertEqual(count + 1, new_count)
