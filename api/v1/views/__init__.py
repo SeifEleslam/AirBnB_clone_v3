@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-start Blueprint
-"""
+"""start point of the Blueprint"""
 
 from flask import Blueprint
 
