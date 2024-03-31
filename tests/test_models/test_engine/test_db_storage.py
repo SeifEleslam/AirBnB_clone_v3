@@ -87,31 +87,27 @@ class TestDBStorage(unittest.TestCase):
     def test_save(self):
         """Test that save properly saves objects to file.json"""
 
-    # @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    # def test_get(self):
-    #     """Test the get function in storage"""
-    #     amenity = Amenity()
-    #     amenity.name = "new Amenity"
-    #     amenity.save()
-    #     amenity_get = models.storage.get(Amenity, amenity.id)
-    #     self.assertIs(amenity, amenity_get)
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_get(self):
+        """Test the get function in storage"""
+        amenity = Amenity()
+        amenity.name = "new Amenity"
+        amenity.save()
+        amenity_get = models.storage.get(Amenity, amenity.id)
+        self.assertEqual(amenity.id, amenity_get.id)
+        self.assertEqual(amenity.name, amenity_get.name)
 
-    # @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    # def test_count_without_cls(self):
-    #     """Test the count function in storage"""
-    #     count = models.storage.count()
-    #     amenity = Amenity()
-    #     amenity.name = "new Amenity"
-    #     amenity.save()
-    #     new_count = models.storage.count()
-    #     self.assertEqual(count + 1, new_count)
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_count_without_cls(self):
+        """Test the count function in storage"""
+        count = models.storage.count()
+        new_count = len(models.storage.all())
+        self.assertEqual(count, new_count)
 
-    # @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    # def test_count_with_cls(self):
-    #     """Test the count function in storage"""
-    #     count = models.storage.count(Amenity)
-    #     amenity = Amenity()
-    #     amenity.name = "new Amenity"
-    #     amenity.save()
-    #     new_count = models.storage.count(Amenity)
-    #     self.assertEqual(count + 1, new_count)
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_count_with_cls(self):
+        """Test the count function in storage"""
+        for cls in classes:
+            count = models.storage.count(cls)
+            new_count = len(models.storage.all(cls))
+            self.assertEqual(count, new_count)
