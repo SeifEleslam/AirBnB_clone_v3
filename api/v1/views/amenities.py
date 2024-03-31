@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-starts a Flask api application
+Amenity Endpoints for the API
 """
 
 from api.v1.views import app_views

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-starts a Flask api application
+User Endpoints for the API
 """
 
 from api.v1.views import app_views
@@ -34,11 +34,15 @@ def add_user():
         body = request.get_json()
     except Exception:
         abort(400, "Not a JSON")
-    name = body.get('name')
-    if not name:
-        abort(400, "Missing name")
+    email = body.get('email')
+    if not email:
+        abort(400, "Missing email")
+    password = body.get('password')
+    if not password:
+        abort(400, "Missing password")
     user = User()
-    user.name = name
+    user.email = email
+    user.password = password
     user.save()
     return user.to_dict(), 201
 
