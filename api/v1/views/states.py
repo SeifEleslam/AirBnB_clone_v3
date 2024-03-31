@@ -63,6 +63,7 @@ def edit_state(state_id):
 
 @app_views.route('/states/<state_id>', methods=['DELETE'])
 def del_state(state_id):
+    """Delete an existing state."""
     state = storage.get(State, state_id)
     if not state:
         abort(404)

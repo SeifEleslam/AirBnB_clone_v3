@@ -21,12 +21,8 @@ def teardown_db(exception):
 
 @app.errorhandler(404)
 def endpoint_not_found(error):
+    """Handle not found err."""
     return {"error": "Not found"}, 404
-
-
-# @app.errorhandler(400)
-# def bad_request(error):
-#     return {"error": error.description}, 400
 
 
 if __name__ == "__main__":

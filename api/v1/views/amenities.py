@@ -63,6 +63,7 @@ def edit_amenity(amenity_id):
 
 @app_views.route('/amenities/<amenity_id>', methods=['DELETE'])
 def del_amenity(amenity_id):
+    """Delete an existing amenity."""
     amenity = storage.get(Amenity, amenity_id)
     if not amenity:
         abort(404)

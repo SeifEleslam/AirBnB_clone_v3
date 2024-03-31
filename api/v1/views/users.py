@@ -63,6 +63,7 @@ def edit_user(user_id):
 
 @app_views.route('/users/<user_id>', methods=['DELETE'])
 def del_user(user_id):
+    """Delete an existing user."""
     user = storage.get(User, user_id)
     if not user:
         abort(404)
