@@ -18,10 +18,10 @@ def get_states():
     return states, 200
 
 
-@app_views.route('/states/<id>', methods=['GET'])
-def get_state(id):
+@app_views.route('/states/<state_id>', methods=['GET'])
+def get_state(state_id):
     """Return status OK for status route"""
-    state = storage.get(State, id)
+    state = storage.get(State, state_id)
     if not state:
         abort(404)
     return state.to_dict(), 200
@@ -30,8 +30,9 @@ def get_state(id):
 @app_views.route('/states', methods=['POST'])
 def add_state():
     """Return status OK for status route"""
-    body = request.get_json()
-    if not body or type(body) is not dict:
+    try:
+        body = request.get_json()
+    except Exception:
         abort(400, "Not a JSON")
     name = body.get('name')
     if not name:
@@ -42,15 +43,16 @@ def add_state():
     return state.to_dict(), 201
 
 
-@app_views.route('/states/<id>', methods=['PUT'])
-def edit_state(id):
+@app_views.route('/states/<state_id>', methods=['PUT'])
+def edit_state(state_id):
     """Return status OK for status route"""
     forbidden = ['id', 'created_at', 'updated_at']
-    state = storage.get(State, id)
+    state = storage.get(State, state_id)
     if not state:
         abort(404)
-    body = request.get_json()
-    if not body or type(body) is not dict:
+    try:
+        body = request.get_json()
+    except Exception:
         abort(400, "Not a JSON")
     for key, val in body.items():
         if key not in forbidden:
@@ -59,9 +61,9 @@ def edit_state(id):
     return state.to_dict(), 200
 
 
-@app_views.route('/states/<id>', methods=['DELETE'])
-def del_state(id):
-    state = storage.get(State, id)
+@app_views.route('/states/<state_id>', methods=['DELETE'])
+def del_state(state_id):
+    state = storage.get(State, state_id)
     if not state:
         abort(404)
     storage.delete(state)

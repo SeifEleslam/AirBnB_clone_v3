@@ -24,6 +24,11 @@ def endpoint_not_found(error):
     return {"error": "Not found"}, 404
 
 
+# @app.errorhandler(400)
+# def bad_request(error):
+#     return {"error": error.description}, 400
+
+
 if __name__ == "__main__":
     """Starting Point of app"""
     host = getenv("HBNB_API_HOST")
