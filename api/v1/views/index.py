@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-starts a Flask api application
-"""
+"""status and stats of a Flask api application"""
 
 from api.v1.views import app_views
 from models import storage
