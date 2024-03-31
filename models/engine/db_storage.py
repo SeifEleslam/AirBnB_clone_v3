@@ -57,7 +57,13 @@ class DBStorage:
 
     def get(self, cls, id):
         """get an object by its class and ID"""
-        return self.__session.query(cls).filter_by(id=id).first()
+        class_val = None
+        for key, value in classes.items():
+            if cls == value or cls == value.__name__:
+                class_val = value
+        if not class_val:
+            return None
+        return self.__session.query(class_val).filter_by(id=id).first()
 
     def count(self, cls=None):
         """Return count of passed class"""

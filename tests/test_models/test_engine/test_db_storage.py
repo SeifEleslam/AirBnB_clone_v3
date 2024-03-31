@@ -96,6 +96,7 @@ class TestDBStorage(unittest.TestCase):
         amenity_get = models.storage.get(Amenity, amenity.id)
         self.assertEqual(amenity.id, amenity_get.id)
         self.assertEqual(amenity.name, amenity_get.name)
+        self.assertIs(None, models.storage.get("sad", "sad"))
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_count_without_cls(self):
