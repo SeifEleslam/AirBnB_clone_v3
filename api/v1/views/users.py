@@ -10,7 +10,7 @@ from flask import abort, request
 
 
 @app_views.route('/users', methods=['GET', 'POST'])
-def get_users():
+def users():
     """Return status OK for status route"""
     if request.method == 'GET':
         users = []
@@ -34,7 +34,7 @@ def get_users():
 
 
 @app_views.route('/users/<user_id>', methods=['GET', 'PUT', 'DELETE'])
-def get_user(user_id):
+def user_id(user_id):
     """Return status OK for status route"""
     user = storage.get(User, user_id)
     if not user:

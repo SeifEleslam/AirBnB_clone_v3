@@ -10,7 +10,7 @@ from flask import abort, request
 
 
 @app_views.route('/amenities', methods=['GET', 'POST'])
-def get_amenities():
+def amenities():
     """Return status OK for status route"""
     if request.method == "GET":
         amenities = []
@@ -31,7 +31,7 @@ def get_amenities():
 
 
 @app_views.route('/amenities/<amenity_id>', methods=['GET', 'PUT', 'DELETE'])
-def get_amenity(amenity_id):
+def amenity_id(amenity_id):
     """Return status OK for status route"""
     amenity = storage.get(Amenity, amenity_id)
     if not amenity:
