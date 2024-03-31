@@ -50,7 +50,7 @@ def add_user():
 @app_views.route('/users/<user_id>', methods=['PUT'])
 def edit_user(user_id):
     """Return status OK for status route"""
-    forbidden = ['id', 'created_at', 'updated_at']
+    forbidden = ['id', 'created_at', 'updated_at', 'email']
     user = storage.get(User, user_id)
     if not user:
         abort(404)
