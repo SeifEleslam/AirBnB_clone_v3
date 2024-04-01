@@ -22,7 +22,8 @@ def place_amenities(place_id):
     return jsonify(amenities), 200
 
 
-@app_views.route('places/<place_id>/amenities/<amenity_id>', methods=['POST', 'DELETE'])
+@app_views.route('places/<place_id>/amenities/<amenity_id>',
+                 methods=['POST', 'DELETE'])
 def place_amenity_id(place_id, amenity_id):
     """Return status OK for status route"""
     place = storage.get(Place, place_id)
