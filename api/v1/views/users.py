@@ -6,7 +6,7 @@ User Endpoints for the API
 from api.v1.views import app_views
 from models import storage
 from models.user import User
-from flask import abort, request
+from flask import abort, request, jsonify
 
 
 @app_views.route('/users', methods=['GET', 'POST'])
@@ -16,7 +16,7 @@ def users():
         users = []
         for user in storage.all(User).values():
             users.append(user.to_dict())
-        return users, 200
+        return jsonify(users), 200
     if request.method == 'POST':
         try:
             body = request.get_json()
