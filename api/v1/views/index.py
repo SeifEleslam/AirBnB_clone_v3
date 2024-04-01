@@ -5,7 +5,7 @@ from api.v1.views import app_views
 from models import storage
 
 
-@app_views.route('/status')
+@app_views.route('/status', methods=['GET'])
 def ok_status():
     """Return status OK for status route"""
     return {"status": "OK"}
