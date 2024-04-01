@@ -35,7 +35,7 @@ def reviews(place_id):
             abort(400, "Missing text")
         review = Review(**body)
         review.save()
-        return review.to_dict(), 201
+        return jsonify(review.to_dict()), 201
 
 
 @app_views.route('/reviews/<review_id>', methods=['GET', 'PUT', 'DELETE'])
@@ -45,7 +45,7 @@ def review_id(review_id):
     if not review:
         abort(404)
     if request.method == "GET":
-        return review.to_dict(), 200
+        return jsonify(review.to_dict()), 200
     if request.method == 'PUT':
         forbidden = ['id', 'created_at', 'updated_at', 'place_id', 'user_id']
         try:
@@ -56,8 +56,8 @@ def review_id(review_id):
             if key not in forbidden:
                 setattr(review, key, val)
         review.save()
-        return review.to_dict(), 200
+        return jsonify(review.to_dict()), 200
     if request.method == "DELETE":
         storage.delete(review)
         storage.save()
-        return {}, 200
+        return jsonify({}), 200

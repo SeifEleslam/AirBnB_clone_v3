@@ -7,7 +7,7 @@ from api.v1.views import app_views
 from models import storage
 from models.city import City
 from models.state import State
-from flask import abort, request
+from flask import abort, request, jsonify
 
 
 @app_views.route('/states/<state_id>/cities', methods=['GET', 'POST'])
@@ -20,7 +20,7 @@ def cities(state_id):
         cities = []
         for city in state.cities:
             cities.append(city.to_dict())
-        return cities, 200
+        return jsonify(cities), 200
     if request.method == 'POST':
         try:
             body = request.get_json()
@@ -31,7 +31,7 @@ def cities(state_id):
             abort(400, "Missing name")
         city = City(**body)
         city.save()
-        return city.to_dict(), 201
+        return jsonify(city.to_dict()), 201
 
 
 @app_views.route('/cities/<city_id>', methods=['GET', 'PUT', 'DELETE'])
@@ -41,7 +41,7 @@ def city_id(city_id):
     if not city:
         abort(404)
     if request.method == "GET":
-        return city.to_dict(), 200
+        return jsonify(city.to_dict()), 200
     if request.method == 'PUT':
         forbidden = ['id', 'created_at', 'updated_at']
         try:
@@ -52,8 +52,8 @@ def city_id(city_id):
             if key not in forbidden:
                 setattr(city, key, val)
         city.save()
-        return city.to_dict(), 200
+        return jsonify(city.to_dict()), 200
     if request.method == "DELETE":
         storage.delete(city)
         storage.save()
-        return {}, 200
+        return jsonify({}), 200

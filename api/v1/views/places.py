@@ -8,7 +8,7 @@ from models import storage
 from models.city import City
 from models.place import Place
 from models.user import User
-from flask import abort, request
+from flask import abort, request, jsonify
 
 
 @app_views.route('/cities/<city_id>/places', methods=['GET'])
@@ -20,7 +20,7 @@ def get_places(city_id):
     places = []
     for place in city.places:
         places.append(place.to_dict())
-    return places, 200
+    return jsonify(places), 200
 
 
 @app_views.route('/places/<place_id>', methods=['GET'])
@@ -84,4 +84,4 @@ def del_place(place_id):
         abort(404)
     storage.delete(place)
     storage.save()
-    return {}, 200
+    return jsonify({}), 200
