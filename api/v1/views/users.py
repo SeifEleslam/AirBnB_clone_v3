@@ -30,7 +30,7 @@ def users():
             abort(400, "Missing password")
         user = User(**body)
         user.save()
-        return user.to_dict(), 201
+        return jsonify(user.to_dict()), 201
 
 
 @app_views.route('/users/<user_id>', methods=['GET', 'PUT', 'DELETE'])
@@ -40,7 +40,7 @@ def user_id(user_id):
     if not user:
         abort(404)
     if request.method == "GET":
-        return user.to_dict(), 200
+        return jsonify(user.to_dict()), 200
     if request.method == "PUT":
         forbidden = ['id', 'created_at', 'updated_at', 'email']
         try:
@@ -51,8 +51,8 @@ def user_id(user_id):
             if key not in forbidden:
                 setattr(user, key, val)
         user.save()
-        return user.to_dict(), 200
+        return jsonify(user.to_dict()), 200
     if request.method == "DELETE":
         storage.delete(user)
         storage.save()
-        return {}, 200
+        return jsonify({}), 200

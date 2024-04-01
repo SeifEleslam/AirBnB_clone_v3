@@ -8,7 +8,7 @@ from models import storage
 from models.place import Place
 from models.user import User
 from models.review import Review
-from flask import abort, request
+from flask import abort, request, jsonify
 
 
 @app_views.route('/places/<place_id>/reviews', methods=['GET', 'POST'])
@@ -21,7 +21,7 @@ def reviews(place_id):
         reviews = []
         for review in place.reviews:
             reviews.append(review.to_dict())
-        return reviews, 200
+        return jsonify(reviews), 200
     if request.method == 'POST':
         try:
             body = request.get_json()
