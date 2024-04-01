@@ -8,7 +8,7 @@ from models import storage
 @app_views.route('/status')
 def ok_status():
     """Return status OK for status route"""
-    return dict({"status": "OK"}), 200
+    return {"status": "OK"}
 
 
 @app_views.route('/stats')
