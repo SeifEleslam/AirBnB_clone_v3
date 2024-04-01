@@ -7,6 +7,7 @@ from api.v1.views import app_views
 from models import storage
 from models.city import City
 from models.place import Place
+from models.state import State
 from models.user import User
 from flask import abort, request, jsonify
 
@@ -85,3 +86,32 @@ def del_place(place_id):
     storage.delete(place)
     storage.save()
     return jsonify({}), 200
+
+
+@app_views.route('/places_search', methods=['POST'])
+def search_places():
+    """Return status OK for status route"""
+    try:
+        body = request.get_json()
+    except Exception:
+        abort(400, "Not a JSON")
+    states_ids = body.get('states', [])
+    cities_ids = body.get('cities', [])
+    amenities_ids = body.get('amenities', [])
+    for id in states_ids:
+        state = storage.get(State, id)
+        if state:
+            cities_ids = list(
+                set(cities_ids + [city.id for city in state.cities]))
+    places = storage.all(Place).values()
+    out_places = []
+    for place in places:
+        place_amenities = [amenity.id for amenity in place.amenities]
+        if place.city_id in cities_ids and\
+                all(amenity in place_amenities for amenity in amenities_ids):
+            dic = place.to_dict()
+            if dic.get('amenities'):
+                del dic["amenities"]
+            out_places.append(dic)
+    print(out_places[1])
+    return jsonify(out_places), 200
