@@ -108,7 +108,8 @@ def search_places():
     out_places = []
     for place in places:
         place_amenities = [amenity.id for amenity in place.amenities]
-        if place.city_id in cities_ids and\
+        if (not (body.get('states') or body.get('cities'))
+                or place.city_id in cities_ids) and\
                 all(amenity in place_amenities for amenity in amenities_ids):
             dic = place.to_dict()
             if dic.get('amenities'):
