@@ -103,6 +103,7 @@ def search_places():
         if state:
             cities_ids = list(
                 set(cities_ids + [city.id for city in state.cities]))
+
     places = storage.all(Place).values()
     out_places = []
     for place in places:
@@ -111,6 +112,7 @@ def search_places():
                 all(amenity in place_amenities for amenity in amenities_ids):
             dic = place.to_dict()
             if dic.get('amenities'):
-                del dic["amenities"]
+                dic['amenities'] = [amenity.to_dict()
+                                    for amenity in dic['amenities']]
             out_places.append(dic)
     return jsonify(out_places), 200
