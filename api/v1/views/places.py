@@ -113,5 +113,4 @@ def search_places():
             if dic.get('amenities'):
                 del dic["amenities"]
             out_places.append(dic)
-    print(out_places[1])
     return jsonify(out_places), 200
