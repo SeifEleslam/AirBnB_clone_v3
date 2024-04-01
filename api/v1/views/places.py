@@ -29,7 +29,7 @@ def get_place(place_id):
     place = storage.get(Place, place_id)
     if not place:
         abort(404)
-    return place.to_dict(), 200
+    return jsonify(place.to_dict()), 200
 
 
 @app_views.route('/cities/<city_id>/places', methods=['POST'])
@@ -55,7 +55,7 @@ def add_place(city_id):
     place.city_id = city_id
     place.name = name
     place.save()
-    return place.to_dict(), 201
+    return jsonify(place.to_dict()), 201
 
 
 @app_views.route('/places/<place_id>', methods=['PUT'])
@@ -73,7 +73,7 @@ def edit_place(place_id):
         if key not in forbidden:
             setattr(place, key, val)
     place.save()
-    return place.to_dict(), 200
+    return jsonify(place.to_dict()), 200
 
 
 @app_views.route('/places/<place_id>', methods=['DELETE'])
