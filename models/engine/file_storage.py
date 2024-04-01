@@ -48,7 +48,7 @@ class FileStorage:
                 class_name = value.__name__
         if not class_name:
             return None
-        return self.__objects.get(f"{class_name}.{id}")
+        return self.__objects.get("{}.{}".format(class_name, id))
 
     def count(self, cls=None):
         """Return count of passed class"""
