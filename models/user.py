@@ -29,5 +29,5 @@ class User(BaseModel, Base):
         """initializes user"""
         super().__init__(*args, **kwargs)
         secured = hashlib.md5()
-        secured.update(kwargs.get('password').encode('utf-8'))
+        secured.update(kwargs.get('password'))
         self.password = secured.hexdigest()
