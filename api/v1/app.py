@@ -3,7 +3,7 @@
 starts a Flask api application
 """
 
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
 from models import storage
 from api.v1.views import app_views
@@ -24,7 +24,7 @@ def teardown_db(exception):
 @app.errorhandler(404)
 def endpoint_not_found(error):
     """Handle not found err."""
-    return {"error": "Not found"}, 404
+    return jsonify({"error": "Not found"}), 404
 
 
 if __name__ == "__main__":
