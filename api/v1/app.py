@@ -28,7 +28,9 @@ def endpoint_not_found(error):
 if __name__ == "__main__":
     """Starting Point of app"""
     host = getenv("HBNB_API_HOST")
-    # host = '0.0.0.0' if not host else host
+    if not host:
+        host = '0.0.0.0'
     port = getenv("HBNB_API_PORT")
-    # port = '5000' if not port else port
+    if not port:
+        port = '5000'
     app.run(host=host, port=port, threaded=True)
